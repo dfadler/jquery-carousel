@@ -1,0 +1,22 @@
+.slideshow {
+	
+  .slide {
+
+	.caption {
+		background:#000;
+		color:#dddddd;
+		
+		&.active {
+			
+		}
+		a {
+			color:white;
+			
+			&:hover {
+				text-decoration:none;
+			}
+		}
+	}
+  }
+  
+}
