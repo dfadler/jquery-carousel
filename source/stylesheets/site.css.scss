@@ -7,10 +7,9 @@ body {
 	background:#333;
 	#main {
 
-		width:750px;
-		padding:25px;;
+		width:800px;
 		margin:50px auto;
-		@include clearfix();
+		@include legacy-pie-clearfix();
 		background:#FFF;
 
 		h1 {
@@ -20,22 +19,17 @@ body {
 	}
 }
 
-#content {
-	// float:left;
-	margin:50px 0;
+.carousel {
+	@include legacy-pie-clearfix();
+	
+	margin:25px;
 	color:white;
-	height:250px;
-	width:750px;
 
-	.slide {
+	.article {
+		height:100px;
+		width:400px;
 
-		.slide-content {
-			
-			.caption {
-				p {
-					padding:5px;
-				}
-			}
+		p {
 		}
 	}
 
@@ -44,7 +38,7 @@ body {
 
 	.prev-container {
 		position:absolute;
-		top:-20px;
+		top:0px;
 		left:0;
 		
 		.prev {
@@ -64,7 +58,7 @@ body {
 	}
 	.next-container {
 		position:absolute;
-		top:-20px;
+		top:0px;
 		left:40px;
 	
 		.next {
@@ -83,7 +77,7 @@ body {
 		font-size:14px;
 		background:black;
 		position:absolute;
-		bottom:-20px;
+		top:0px;
 		right:0;
 	
 		.control {
@@ -109,8 +103,12 @@ body {
 		}
 	}
 }
-#content-2, #content-3 {
-	@extend #content;
-}
 
-@import 'jquery.slideshow.css.scss';
+#content-1 {
+	padding-top:20px;
+}
+// #content-2, #content-3 {
+// 	@extend #content;
+// }
+
+@import 'jquery.carousel.css.scss';
