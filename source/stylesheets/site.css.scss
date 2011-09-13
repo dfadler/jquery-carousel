@@ -7,8 +7,9 @@ body {
 	background:#333;
 	#main {
 
-		width:800px;
+		width:750px;
 		margin:50px auto;
+		padding:25px;
 		@include legacy-pie-clearfix();
 		background:#FFF;
 
@@ -21,14 +22,19 @@ body {
 
 .carousel {
 	@include legacy-pie-clearfix();
-	
-	margin:25px;
+	height:120px;
+	margin:25px 0;
 	color:white;
 
 	.article {
 		height:100px;
 		width:400px;
-
+		padding:10px;
+		
+		& + .article {
+			margin-left:10px;
+		}
+		
 		p {
 		}
 	}
