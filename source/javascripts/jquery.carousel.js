@@ -72,14 +72,19 @@
 			// Variable Assignment
 			var $this = this,
 				carousel = new Carousel($this, options),
+				opts = carousel.settings,
 				section = carousel.section,
 				sectionHeight = carousel.sectionHeight,
 				sectionWidth = carousel.sectionWidth,
 				stage = carousel.stage,
 				articles = carousel.articles,
 				indexedArticles = carousel.articlesPre,
-				firstArticle = articles[1],
-				lastArticle = articles[articles.length - 2];
+				// firstArticle = articles[1],
+				lastArticle = indexedArticles.length - 1,
+				currentArticle = 0,
+				controlPanel = $('.control-panel', section);
+				
+				console.log(lastArticle);
 				
 			if ($(section).css('position') === 'static') {
 				$(section)
@@ -107,16 +112,70 @@
 					}
 				);
 			
-			function goto() {
+			function goto(index) {
 				
+				console.log('goto triggered ' + index)
+				$('.active',controlPanel)
+					.removeClass('active');
+				$('.control:eq('+index+')',controlPanel)
+					.addClass('active');
+				$(stage)
+					.animate({
+						'left': -((($(articles).outerWidth() + parseInt($(articles[1]).css('margin-left')))) * (currentArticle + 2))
+					});
 			}
 			
-			function advance() {
+			function advance(direction) {
 				
+				console.log(direction);
+				
+				switch (direction) {
+
+				case 'next':
+					console.log('next');
+					if (currentArticle < lastArticle) {
+						currentArticle += 1;
+						goto(currentArticle);
+					} else {
+						// toggleLoop(direction);
+						goto(currentArticle);
+					}
+					break;
+
+				case 'prev':
+					console.log('prev');
+					if (currentArticle > 0) {
+						currentArticle -= 1;
+						goto(currentArticle);
+					} else {
+						// toggleLoop(direction);
+						goto(currentArticle);
+					}
+					break;
+
+				default:
+					console.log('default');
+					goto(currentArticle);
+					break;
+				}
+				// 
+				// 
+				// currentArticle += 1
+				// goto(currentArticle);
 			}
+			
+			if (opts.controls) {
+				$('.next, .prev', section)
+					.click(
+						function(params) {
+							params = $(this).attr('class');
+							advance(params);
+						}
+					);	
+			}
+			
 			
 		});
-
 	}
 	
 	// Carousel default options
