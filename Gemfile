@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gem "sinatra"
 gem "thin"
 gem "rack-contrib"
-gem "middleman"
+gem "middleman", "~> 2.0.8"
 gem "execjs"
 gem "rack-codehighlighter"
 gem "coderay"
@@ -16,6 +16,6 @@ end
 group :development do
   gem "redcarpet"
   gem "builder"
-  gem "middleman"
+  gem "middleman", "~> 2.0.8"
   gem "heroku"
 end
