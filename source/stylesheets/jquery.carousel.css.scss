@@ -6,4 +6,45 @@
 		float:left;
 		width:400px;
 	}
+	
+	.control-panel {
+		top:0;
+		
+		.prev-container, .next-container, .controls-container {
+			position:absolute;
+			top:-20px;
+		}
+		
+		.prev-container {
+			.prev {
+				
+			}
+		}
+		
+		.next-container {
+			left:50px;
+			
+			.next {
+			}
+		}
+		
+		.controls-container {
+			right: 0;
+			
+			.controls {
+				.control {
+					float: left;
+					
+					& + .control {
+						margin-left:5px;
+					}
+					
+					
+					span {
+						
+					}
+				}
+			}
+		}
+	}
 }
