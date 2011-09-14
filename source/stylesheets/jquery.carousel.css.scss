@@ -1,0 +1,9 @@
+.carousel {
+	@include legacy-pie-clearfix();
+	margin:50px 0 0;
+	
+	.article {
+		float:left;
+		width:400px;
+	}
+}
