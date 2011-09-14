@@ -16,7 +16,7 @@
 				stagePosition = null,
 				visibleArticles = 3,
 				articles = stage.children(),
-				articlesWidth = stage.children().width(),
+				articlesWidth = $(articles).outerWidth() + parseInt($(articles[1]).css('margin-left')),
 				articlesHeight = stage.children().height(),
 				articlesCount = articles.length,
 				firstArticle = visibleArticles,
@@ -27,20 +27,6 @@
 				loop = true,
 				controlPanel = null,
 				i = null;
-				
-			if ($($this).css('position') === 'static') {
-				$($this)
-					.css({
-						'position': 'relative'
-					});
-			}
-			
-			// if($('.window', $this).css('overflow') !== 'hidden') {
-			// 	$('.window', $this)
-			// 		.css({
-			// 			'overflow': 'hidden'
-			// 		});
-			// }
 				
 			function generateControls(controls) {
 				if (controls === 0) {
@@ -88,125 +74,64 @@
 					.append(cloneFirst);
 			}
 			
-			function positionStage(left, css) {
-				
-				// switch (currentArticle) {
-				// case firstArticle - 1:
-				// 	currentArticle = lastArticle - 1;	
-				// 	left = parseInt(stagePosition) + articlesWidth;
-				// 	stage
-				// 		.stop(true)
-				// 		.animate({
-				// 			'left': left 
-				// 		}, 
-				// 		animationSpeed,
-				// 		function () {
-				// 			stage
-				// 				.css({
-				// 					'left': -(articlesWidth * (lastArticle - 1))
-				// 				});
-				// 		}
-				// 		);
-				// 	break;
-				// case lastArticle + 1:
-				// 	currentArticle = firstArticle + 1;
-				// 	stage
-				// 		.css({
-				// 			'left': -(articlesWidth * (visibleArticles + 1))
-				// 		});
-				// 	left = parseInt(stagePosition) - articlesWidth;
-				// 	stage
-				// 		.stop(true)
-				// 		.animate({
-				// 			'left': left
-				// 		},
-				// 		animationSpeed,
-				// 		function () {
-				// 			
-				// 		}
-				// 		);
-					// break;
-				// if (!css) {
-				// 	stage
-				// 		.stop(true)
-				// 		.animate({
-				// 			'left': left
-				// 		}, 
-				// 		animationSpeed
-				// 		);
-				// } else {
-					
-					stage
+			function positionStage(i, clone) {
+				if (clone) {
+					$('.window', $this)
 						.stop(true)
 						.animate({
-							'left': left
+							scrollLeft: i * articlesWidth
 						},
-						animationSpeed
+						500,
+						function () {
+							$('.window', $this)
+								.scrollLeft(clone * articlesWidth);
+						}
 						);
-				// }
+					currentArticle = clone;
+				} else {
+					$('.window', $this)
+						.stop(true)
+						.animate({
+							scrollLeft: i * articlesWidth
+						},
+						500
+						);
+				}
 			}
-			
+
 			if (loop) {
 				cloneArticles(visibleArticles);		
 				articles = stage.children();
 				articlesCount = articles.length;
 				lastArticle = articlesCount - visibleArticles
-				positionStage(-(articlesWidth * visibleArticles));	
-			}
-						
-			stage
-				.css({
-					'width': articlesWidth * articlesCount
-				});
-				
-			if (stage.css('position') === 'static') {
-				stage
-					.css({
-						'position': 'relative'
-					});
+				$('.window', $this)
+					.scrollLeft(visibleArticles * articlesWidth);
 			}
 
 			if (opts.controls) {
 				$('.next, .prev', controlPanel)
 					.bind(
 						'click',
-						function (e, direction, clone) {
-							stagePosition = stage.css('left');	
-							
-							switch ($(this).attr('class')) {
-							case 'prev':
+						function (e, direction, clonedArticle) {
+							clonedArticle = false;
+							if($(this).attr('class') === 'prev') {
 								currentArticle -= 1;
-								direction = parseInt(stagePosition) + articlesWidth;
-								break;
-							case 'next':
-								currentArticle += 1;
-								direction = parseInt(stagePosition) - articlesWidth;
-								break;
-							default:
-								break;
-							}
-							
-							console.log(currentArticle, direction, lastArticle);
-							e.stopPropagation();
-							if (currentArticle < firstArticle) {
-								console.log('if');
-								currentArticle = lastArticle;
-								clone = -(articlesWidth * (lastArticle));
-								stage
-									.css({
-										'left': clone
-									});
-									
-								positionStage(direction);
-							} else if(currentArticle > lastArticle) {
-								console.log('if else');
-								currentArticle = firstArticle;
-								clone = -(articlesWidth * (visibleArticles + 1));
-								positionStage(direction, clone);
+								console.log('Prev');
+								if (currentArticle < firstArticle) {
+									console.log('inner prev');
+									clonedArticle = lastArticle - 1;
+								}
 							} else {
-								console.log('else');
-								positionStage(direction);
+								currentArticle += 1;
+								console.log('next');
+								if (currentArticle > lastArticle) {
+									console.log('inner next');
+									clonedArticle = firstArticle + 1;
+								}
 							}
+							e.stopPropagation();
+							positionStage(currentArticle, clonedArticle);
+							console.log(currentArticle);
 						}
 					);
 				$('.control', controlPanel)
@@ -214,7 +139,6 @@
 						'click',
 						function (e) {
 							e.stopPropagation();
-							positionStage();
 						}
 					);	
 			}	
