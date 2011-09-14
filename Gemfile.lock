@@ -97,6 +97,10 @@ GEM
       temple (~> 0.3.0)
       tilt (!= 1.3.0, ~> 1.1)
       tilt (~> 1.2)
+    sprockets (2.0.0)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (!= 1.3.0, ~> 1.1)
     syntax (1.0.0)
     temple (0.3.2)
     term-ansicolor (1.0.6)
@@ -126,5 +130,6 @@ DEPENDENCIES
   rack-contrib
   redcarpet
   sinatra
+  sprockets (~> 2.0.0)
   therubyracer-heroku (= 0.8.1.pre3)
   thin
