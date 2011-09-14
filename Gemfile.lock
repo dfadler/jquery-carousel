@@ -1,9 +1,8 @@
 GIT
   remote: https://github.com/sstephenson/sprockets.git
-  revision: 9e88aee9ee3b28626ab30b00f905cc6737677fff
-  tag: v2.0.0.beta.13
+  revision: e7dc9b9c8fbd54b8f341996019486776171fa13d
   specs:
-    sprockets (2.0.0.beta.13)
+    sprockets (2.0.0)
       hike (~> 1.2)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
