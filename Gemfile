@@ -7,7 +7,7 @@ gem "middleman"
 gem "execjs"
 gem "rack-codehighlighter"
 gem "coderay"
-gem "sprockets", "~> 2.0.0"
+gem "sprockets", "2.0.0.beta.15"
 
 group :production do
   gem 'therubyracer-heroku', '0.8.1.pre3'
